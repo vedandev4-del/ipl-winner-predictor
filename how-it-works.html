@@ -4,8 +4,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Learn how the IPL Winner Predictor estimates match-winning probabilities, what predictions mean, and why they are uncertain.">
-  <title>How IPL Winner Prediction Works</title>
+  <meta name="description" content="Understand the inputs, calculations, and limitations of the IPL Winner Predictor cricket analytics application.">
+  <title>How IPL Winner Prediction Works | IPL Winner Predictor</title>
   <style>
     body {
       max-width: 800px;
@@ -16,6 +16,13 @@
     }
     h1, h2 { color: #174ea6; }
     a { color: #174ea6; }
+    li { margin-bottom: 8px; }
+    .note {
+      background: #f1f5f9;
+      border-left: 4px solid #2563eb;
+      padding: 14px 18px;
+      margin: 20px 0;
+    }
   </style>
 </head>
 <body>
@@ -24,59 +31,102 @@
   <h1>How IPL Winner Prediction Works</h1>
 
   <p>
-    Cricket match prediction uses available match information and
-    statistical patterns to estimate which team may have a higher
-    probability of winning. A prediction is an estimate, not a guarantee.
+    IPL Winner Predictor is an educational cricket analytics project.
+    Its application uses match details entered by the user and a saved
+    machine-learning pipeline to estimate possible outcomes during a
+    run chase. The output is a model-generated estimate, not a guarantee.
   </p>
 
-  <h2>1. Match information</h2>
-  <p>
-    Depending on the model and the inputs supported by the application,
-    predictions may use information such as the teams playing, current
-    score, wickets lost, overs completed, target score, and match venue.
-    The actual inputs depend on the implementation of this project.
-  </p>
-
-  <h2>2. Model prediction</h2>
-  <p>
-    A trained machine-learning model can process numerical and categorical
-    features and produce an estimate for each possible outcome. The quality
-    of that estimate depends on the training data, selected features,
-    model design, and how closely the current match resembles past examples.
-  </p>
-
-  <h2>3. Understanding probability</h2>
-  <p>
-    If a model displays a 70% winning probability for a team, this should
-    not be interpreted as certainty. It is a model-generated estimate.
-    Probability estimates are meaningful only to the extent that the model
-    has been properly evaluated and calibrated.
-  </p>
-
-  <h2>4. Factors that affect accuracy</h2>
+  <h2>1. Match information entered by the user</h2>
+  <p>The application accepts the following inputs:</p>
   <ul>
-    <li>Quality and completeness of the historical data</li>
-    <li>Whether the input values are accurate and up to date</li>
-    <li>Unexpected match events, including injuries and weather changes</li>
-    <li>Differences between past matches and the current match situation</li>
+    <li>Batting team</li>
+    <li>Bowling team</li>
+    <li>Host city</li>
+    <li>Target score</li>
+    <li>Current score</li>
+    <li>Overs completed</li>
+    <li>Wickets lost</li>
   </ul>
 
-  <h2>5. Limitations</h2>
+  <h2>2. Calculations used by the application</h2>
+
+  <h3>Runs remaining</h3>
   <p>
-    Cricket is uncertain, and no prediction model can guarantee the winner.
-    Results should be treated as informational estimates rather than
-    professional advice or a promise of an outcome.
+    Runs remaining = Target score − Current score.
+    For example, if the target is 180 and the current score is 100,
+    the batting team needs 80 more runs.
   </p>
 
-  <h2>Try the project</h2>
+  <h3>Balls remaining</h3>
+  <p>
+    In a standard 20-over innings, the application calculates balls
+    remaining as 120 minus six times the overs completed. This assumes
+    the overs input is entered in the format expected by the application.
+  </p>
+
+  <h3>Wickets remaining</h3>
+  <p>
+    Wickets remaining = 10 − Wickets lost. For example, if four wickets
+    have fallen, six wickets remain.
+  </p>
+
+  <h3>Run rates</h3>
+  <p>
+    The application calculates the current run rate from the current
+    score and overs completed. It also calculates the required run rate
+    from runs remaining and balls remaining. These calculations help
+    represent the scoring situation during a chase.
+  </p>
+
+  <h2>3. How the model produces an estimate</h2>
+  <p>
+    The application loads a saved pipeline from a file named
+    <code>pipe.pkl</code>. It prepares the match inputs in a tabular
+    format and passes them to the pipeline's probability-prediction
+    function. The app then displays the returned probability values
+    for the batting-team win and bowling-team loss outcomes according
+    to its current implementation.
+  </p>
+  <p>
+    The model's exact algorithm, training dataset, evaluation results,
+    and probability calibration cannot be established from the app
+    interface code alone. No accuracy percentage is claimed here.
+  </p>
+
+  <h2>4. Understanding the displayed probabilities</h2>
+  <p>
+    A probability is an estimate produced by the model. It should not
+    be interpreted as certainty, and it may be unreliable if the model
+    has not been properly tested or if the match inputs are incorrect.
+  </p>
+
+  <h2>5. Limitations</h2>
+  <ul>
+    <li>The prediction depends on the quality and suitability of the saved model.</li>
+    <li>Incorrect or inconsistent input values may affect the output.</li>
+    <li>The application should not be assumed to fetch live scores automatically.</li>
+    <li>Unexpected events and changing match conditions can influence the actual result.</li>
+    <li>Predictions are not guaranteed outcomes or betting recommendations.</li>
+  </ul>
+
+  <div class="note">
+    <strong>Important:</strong> This project is intended for educational
+    and informational use. Do not treat its predictions as a promise
+    of winnings or a guaranteed match result.
+  </div>
+
+  <h2>Explore the project</h2>
   <p>
     <a href="https://ipl-winner-probability-predictor-ks3y6kwqxqq6y5nhyeumwr.streamlit.app/">
       Open the IPL Winner Predictor application
     </a>
   </p>
-
   <p>
-    <a href="privacy.html">Privacy Policy</a>
+    <a href="model-details.html">Model Details</a> |
+    <a href="faq.html">Frequently Asked Questions</a> |
+    <a href="privacy.html">Privacy Policy</a> |
+    <a href="./">Homepage</a>
   </p>
 </body>
 </html>
