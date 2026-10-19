@@ -1,0 +1,147 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Explore the inputs, calculations, prediction pipeline, and limitations of the IPL Winner Predictor machine-learning project.">
+  <title>Model Details | IPL Winner Predictor</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      max-width: 850px;
+      margin: 40px auto;
+      padding: 0 20px;
+      font: 16px/1.8 Arial, sans-serif;
+      color: #172033;
+      background: #f8fafc;
+    }
+    h1, h2 { color: #174ea6; line-height: 1.3; }
+    section {
+      background: #fff;
+      border: 1px solid #dbe3ef;
+      border-radius: 12px;
+      padding: 20px;
+      margin: 22px 0;
+    }
+    code {
+      background: #edf2f7;
+      padding: 2px 5px;
+      border-radius: 4px;
+    }
+    a { color: #174ea6; }
+    .note {
+      border-left: 4px solid #2563eb;
+      padding-left: 14px;
+    }
+  </style>
+</head>
+<body>
+  <p><a href="./">← Back to Home</a></p>
+
+  <h1>How the IPL Winner Predictor Model Works</h1>
+
+  <p>
+    This project is a machine-learning application that estimates the
+    probability of a team winning a second-innings IPL match based on
+    the match information entered by the user.
+  </p>
+
+  <section>
+    <h2>1. Match information entered by the user</h2>
+    <ul>
+      <li>Batting team</li>
+      <li>Bowling team</li>
+      <li>Host city</li>
+      <li>Target score</li>
+      <li>Current score</li>
+      <li>Overs completed</li>
+      <li>Wickets lost</li>
+    </ul>
+    <p>
+      The available teams and cities are defined in the application's
+      Python code. The model's results depend on these inputs and the
+      training data used to build the saved pipeline.
+    </p>
+  </section>
+
+  <section>
+    <h2>2. Features calculated by the application</h2>
+    <p><strong>Runs remaining</strong></p>
+    <p><code>runs_left = target - score</code></p>
+
+    <p><strong>Balls remaining</strong></p>
+    <p><code>balls_left = 120 - (overs × 6)</code></p>
+
+    <p><strong>Wickets remaining</strong></p>
+    <p><code>wickets_remaining = 10 - wickets_lost</code></p>
+
+    <p><strong>Current run rate (CRR)</strong></p>
+    <p><code>CRR = score / overs_completed</code></p>
+
+    <p><strong>Required run rate (RRR)</strong></p>
+    <p><code>RRR = (runs_remaining × 6) / balls_remaining</code></p>
+
+    <p>
+      These features describe the chase situation. The application passes
+      them, along with the teams, city, and target, to its prediction pipeline.
+    </p>
+  </section>
+
+  <section>
+    <h2>3. The prediction pipeline</h2>
+    <p>
+      The application loads a saved pipeline from a file named
+      <code>pipe.pkl</code>. When the user clicks Predict Probability,
+      it creates a pandas DataFrame containing the calculated features
+      and calls the pipeline's <code>predict_proba()</code> method.
+    </p>
+    <p>
+      The code interprets the first returned probability as the bowling
+      team's outcome and the second as the batting team's outcome.
+      This interpretation depends on the class ordering used when the
+      model was trained.
+    </p>
+    <p class="note">
+      The specific estimator, training dataset, and measured predictive
+      performance cannot be confirmed from the application code alone.
+    </p>
+  </section>
+
+  <section>
+    <h2>4. Understanding the displayed probabilities</h2>
+    <p>
+      The application displays rounded percentages for the batting and
+      bowling teams. These are model-generated estimates, not guaranteed
+      outcomes. The reliability of the probabilities depends on the
+      underlying model and its validation.
+    </p>
+  </section>
+
+  <section>
+    <h2>5. Important limitations</h2>
+    <ul>
+      <li>The output depends on the accuracy of the entered match information.</li>
+      <li>The model may not account for every real-world match condition.</li>
+      <li>Predictions can be wrong, even when a team has a high estimated probability.</li>
+      <li>No accuracy score is claimed here because verified evaluation results have not been provided.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>6. Try the application</h2>
+    <p>
+      <a href="https://ipl-winner-probability-predictor-ks3y6kwqxqq6y5nhyeumwr.streamlit.app/">
+        Open the IPL Winner Predictor
+      </a>
+    </p>
+    <p>
+      <a href="how-it-works.html">How It Works</a> |
+      <a href="faq.html">FAQ</a> |
+      <a href="privacy.html">Privacy Policy</a>
+    </p>
+  </section>
+
+  <p><a href="./">Return to the homepage</a></p>
+</body>
+</html>
